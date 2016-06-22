@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">QR Reader</string>
+    <string name="emptyQRView">Point the camera view to a QR Code to read the information</string>
+    <string name="contact_info">Contact Info</string>
+    <string name="calendar_event">Calendar Event</string>
+    <string name="location">Location</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="sms_message">SMS Message</string>
+    <string name="email">Email</string>
+    <string name="web_link">Web Link</string>
+    <string name="text">Text</string>
+    <string name="add_calendar">Add to calender</string>
+    <string name="send_email">Send Email</string>
+    <string name="open_browser">Open browser</string>
+    <string name="call">Call</string>
+    <string name="add_contact">Add contact</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="on_map">On map</string>
+    <string name="title_activity_history">HistoryActivity</string>
+    <string name="setting_title">Settings</string>
+    <string name="Allow_Duplicate">Allow QrHistory Duplicate</string>
+    <string name="open_history">Open history</string>
+    <string name="clear_history">Clear history</string>
+    <string name="clear_history_success">QR History was successfully cleared</string>
+    <string name="clear_history_failed">There is no history to delete</string>
+</resources>
