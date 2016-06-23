@@ -28,3 +28,5 @@ and after detection
 <p align="center">
   <img src="https://raw.githubusercontent.com/ahmed-basyouni/gitImages/master/Screenshot_2016-06-22-20-34-49-427.jpeg" width="350"/>
 </p>
+
+if that view doesn't go well with your teast well you can make your own view and to do that please follow manual installation in wiki
