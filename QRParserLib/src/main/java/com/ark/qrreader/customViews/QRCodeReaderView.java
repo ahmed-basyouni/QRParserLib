@@ -55,6 +55,7 @@ import java.io.IOException;
 public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callback,Camera.PreviewCallback {
 
 	private boolean isBarCodeAlreadyDetected;
+	private Context context;
 
 
 	public void refreshCamera() {
@@ -80,11 +81,13 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 
 	public QRCodeReaderView(Context context) {
 		super(context);
+		this.context = context;
 		init();
 	}
 
 	public QRCodeReaderView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		this.context = context;
 		init();
 	}
 
@@ -167,7 +170,7 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 					isBarCodeAlreadyDetected = true;
 					// Transform resultPoints to View coordinates
 					PointF[] transformedPoints = transformToViewCoordinates(result.getResultPoints());
-					mOnQRCodeReadListener.onQRCodeRead(QRParser.getInstance().parseQRObject(result.getText()), transformedPoints);
+					mOnQRCodeReadListener.onQRCodeRead(QRParser.getInstance().parseQRObject(result.getText() , context), transformedPoints);
 					mOnQRCodeReadListener.onQRCodeReadWithObject(QRParser.getInstance().getBarCodeObject());
 				}
 
