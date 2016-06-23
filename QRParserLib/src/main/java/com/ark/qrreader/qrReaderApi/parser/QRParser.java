@@ -1,5 +1,9 @@
 package com.ark.qrreader.qrReaderApi.parser;
 
+import android.content.Context;
+
+import com.ark.qrreader.myapplication.R;
+import com.ark.qrreader.qrReaderApi.manager.HistoryManager;
 import com.ark.qrreader.qrReaderApi.models.BarCodeObject;
 import com.ark.qrreader.qrReaderApi.utils.DateUtils;
 
@@ -32,7 +36,7 @@ public class QRParser {
         this.barCodeObject = barCodeObject;
     }
 
-    public String parseQRObject(String rawValue){
+    public String parseQRObject(String rawValue , Context context){
 
         barCodeObject = new BarCodeObject();
 
@@ -48,47 +52,48 @@ public class QRParser {
 
             case BarCodeObject.CONTACT_TYPE:
                 value = parseContact(rawValue);
-                text = "Contact Info";
+                text = context.getResources().getString(R.string.contact_info);
                 break;
 
             case BarCodeObject.CALENDER_TYPE:
                 value = parseCalenderEvent(rawValue);
-                text = "Calendar Event";
+                text = context.getResources().getString(R.string.calendar_event);
                 break;
 
             case BarCodeObject.GEO_TYPE:
                 value = parseGeo(rawValue);
-                text = "Location";
+                text = context.getResources().getString(R.string.location);
                 break;
 
             case BarCodeObject.PHONE_TYPE:
                 value = parsePhone(rawValue);
-                text = "Phone Number";
+                text = context.getResources().getString(R.string.phone_number);
                 break;
 
             case BarCodeObject.TEXT_TYPE:
                 value = parseText(rawValue);
-                text = "Text";
+                text = context.getResources().getString(R.string.text);
                 break;
 
             case BarCodeObject.EMAIL_TYPE:
                 value = parseEmail(rawValue);
-                text = "Email";
+                text = context.getResources().getString(R.string.email);
                 break;
 
             case BarCodeObject.URL_TYPE:
                 value = parseUrl(rawValue);
-                text = "Web Link";
+                text = context.getResources().getString(R.string.web_link);
                 break;
 
             case BarCodeObject.SMS_TYPE:
                 value = parseSMS(rawValue);
-                text = "SMS Message";
+                text = context.getResources().getString(R.string.sms_message);
                 break;
         }
 
         barCodeObject.setRawValue(value);
         barCodeObject.setQrType(text);
+        HistoryManager.getInstance().onQRCodeRead(barCodeObject, context);
         return value;
     }
 

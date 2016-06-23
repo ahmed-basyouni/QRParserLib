@@ -122,7 +122,6 @@ public class CaptureActivity extends Activity implements OnQRCodeReadListener {
     public void onQRCodeReadWithObject(BarCodeObject barCodeObject) {
 
         handleQRObject(barCodeObject);
-        HistoryManager.getInstance().onQRCodeRead(barCodeObject, this);
     }
 
     private void handleQRObject(BarCodeObject barCodeObject) {

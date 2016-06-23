@@ -25,7 +25,7 @@ public class HistoryManager {
     private final String CACHED_FILE = "barCodeObjectsListCache";
     private static HistoryManager instance;
     private List<BarCodeObject> barCodeObjects = new ArrayList<>();
-    private Activity activity;
+    private Context context;
     private boolean duplicateHistory = false;
 
     public static HistoryManager getInstance() {
@@ -38,7 +38,7 @@ public class HistoryManager {
 
         try {
 
-            FileOutputStream fos = activity.openFileOutput(CACHED_FILE, Activity.MODE_PRIVATE);
+            FileOutputStream fos = context.openFileOutput(CACHED_FILE, Activity.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(barCodeObjects);
 
@@ -53,7 +53,7 @@ public class HistoryManager {
         ObjectInputStream ois = null;
         FileInputStream fis = null;
         try {
-            fis = activity.openFileInput(CACHED_FILE);
+            fis = context.openFileInput(CACHED_FILE);
             ois = new ObjectInputStream(fis);
             List<BarCodeObject> tempObjects = (List<BarCodeObject>) ois.readObject();
             if (tempObjects != null && !tempObjects.isEmpty())
@@ -87,8 +87,8 @@ public class HistoryManager {
     }
 
 
-    public void onQRCodeRead(BarCodeObject barCodeObject, Activity activity) {
-        this.activity = activity;
+    public void onQRCodeRead(BarCodeObject barCodeObject, Context context) {
+        this.context = context;
 
         if(barCodeObjects.isEmpty())
             loadListFromFile();
@@ -101,8 +101,8 @@ public class HistoryManager {
         saveHistory();
     }
 
-    public List<BarCodeObject> getHistoryList(Activity activity) {
-        this.activity = activity;
+    public List<BarCodeObject> getHistoryList(Context context) {
+        this.context = context;
         if (barCodeObjects.isEmpty())
             loadListFromFile();
         return barCodeObjects;
