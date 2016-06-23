@@ -26,7 +26,7 @@ public class BarCodeObject implements Serializable{
     public ArkText normalText;
     public ArkUrl url;
     public ArkEmail email;
-    private String diplayValue;
+    private String displayValue;
     private String qrType;
     private String rawValue;
 
@@ -38,12 +38,12 @@ public class BarCodeObject implements Serializable{
         this.rawValue = rawValue;
     }
 
-    public String getDiplayValue() {
-        return diplayValue;
+    public String getDisplayValue() {
+        return displayValue;
     }
 
-    public void setDiplayValue(String diplayValue) {
-        this.diplayValue = diplayValue;
+    public void setDisplayValue(String displayValue) {
+        this.displayValue = displayValue;
     }
 
     public String getQrType() {

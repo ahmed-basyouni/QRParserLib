@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ark.qrreader.customViews.QRCodeReaderView;
+import com.ark.qrreader.qrReaderApi.annotations.Call;
 import com.ark.qrreader.qrReaderApi.exception.QRReaderException;
 import com.ark.qrreader.qrReaderApi.manager.HistoryManager;
 import com.ark.qrreader.qrReaderApi.models.BarCodeObject;
@@ -89,7 +90,7 @@ public class CaptureActivity extends Activity implements OnQRCodeReadListener {
     }
 
     @Override
-    public void onQRCodeRead(String text, PointF[] points) {
+    public void onQRCodeRead(String text) {
         qrDetailsOnScreen = true;
         handleQRText(text);
     }

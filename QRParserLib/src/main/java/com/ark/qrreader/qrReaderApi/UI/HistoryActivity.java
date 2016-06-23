@@ -99,7 +99,7 @@ public class HistoryActivity extends Activity implements SettingsDialog.OnHistor
                 viewHolder = (HistoryViewHolder) view.getTag();
             }
 
-            viewHolder.displayValue.setText(barCodeObjectList.get(i).getDiplayValue());
+            viewHolder.displayValue.setText(barCodeObjectList.get(i).getDisplayValue());
             viewHolder.qrType.setText(barCodeObjectList.get(i).getQrType());
 
             view.setOnClickListener(new View.OnClickListener() {

@@ -111,7 +111,7 @@ public class QRParser {
         String[] smsArr = sms.split(":");
 
         this.barCodeObject.sms.setNumber(smsArr[0]);
-        this.barCodeObject.setDiplayValue(smsArr[0]);
+        this.barCodeObject.setDisplayValue(smsArr[0]);
 
         if(smsArr.length > 1 && smsArr[1] != null)
             this.barCodeObject.sms.setMessage(smsArr[1]);
@@ -124,7 +124,7 @@ public class QRParser {
 
         barCodeObject.url = barCodeObject.new ArkUrl();
         barCodeObject.url.setUrl(rawValue);
-        barCodeObject.setDiplayValue(rawValue);
+        barCodeObject.setDisplayValue(rawValue);
         return rawValue;
     }
 
@@ -141,7 +141,7 @@ public class QRParser {
             value = getValue(rawValue, rawValue.indexOf(":", rawValue.toLowerCase().indexOf("to:")));
 
             this.barCodeObject.email.setEmailAdress(value);
-            this.barCodeObject.setDiplayValue(value);
+            this.barCodeObject.setDisplayValue(value);
         }
 
         if(rawValue.toLowerCase().indexOf("sub:") != -1){
@@ -162,7 +162,7 @@ public class QRParser {
         barCodeObject.normalText = barCodeObject.new ArkText();
 
         barCodeObject.normalText.setText(rawValue);
-        barCodeObject.setDiplayValue(rawValue);
+        barCodeObject.setDisplayValue(rawValue);
         return rawValue;
     }
 
@@ -177,7 +177,7 @@ public class QRParser {
             barCodeObject.phone = barCodeObject.new ArkPhone();
 
             this.barCodeObject.phone.setNumber(value);
-            this.barCodeObject.setDiplayValue(value);
+            this.barCodeObject.setDisplayValue(value);
 
         }
         return value;
@@ -199,7 +199,7 @@ public class QRParser {
 
             this.barCodeObject.geoPoint.setLat(Double.parseDouble(geoPoints[0]));
             this.barCodeObject.geoPoint.setLng(Double.parseDouble(geoPoints[1]));
-            this.barCodeObject.setDiplayValue(value);
+            this.barCodeObject.setDisplayValue(value);
         }
 
         return value;
@@ -217,7 +217,7 @@ public class QRParser {
 
             calender = calender + "Title : " + title;
             this.barCodeObject.calenderEvent.setTitle(title);
-            this.barCodeObject.setDiplayValue(title);
+            this.barCodeObject.setDisplayValue(title);
         }
 
         if (rawValue.toLowerCase().indexOf("description:") != -1) {
@@ -293,7 +293,7 @@ public class QRParser {
                 this.barCodeObject.contactInfo.setLastName(nameValue[0]);
 
             this.barCodeObject.contactInfo.setFullName(name);
-            this.barCodeObject.setDiplayValue(name);
+            this.barCodeObject.setDisplayValue(name);
         }
 
         if (rawValue.toLowerCase().indexOf("title:") != -1) {

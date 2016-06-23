@@ -23,7 +23,7 @@ import com.ark.qrreader.qrReaderApi.models.BarCodeObject;
 
 public interface OnQRCodeReadListener {
 
-    public void onQRCodeRead(String text, PointF[] points);
+    public void onQRCodeRead(String text);
     public void cameraNotFound();
     public void QRCodeNotFoundOnCamImage();
     public void QRException(QRReaderException ex);

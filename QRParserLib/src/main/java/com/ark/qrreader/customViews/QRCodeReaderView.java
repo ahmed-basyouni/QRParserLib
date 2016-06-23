@@ -170,7 +170,7 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 					isBarCodeAlreadyDetected = true;
 					// Transform resultPoints to View coordinates
 					PointF[] transformedPoints = transformToViewCoordinates(result.getResultPoints());
-					mOnQRCodeReadListener.onQRCodeRead(QRParser.getInstance().parseQRObject(result.getText() , context), transformedPoints);
+					mOnQRCodeReadListener.onQRCodeRead(QRParser.getInstance().parseQRObject(result.getText() , context));
 					mOnQRCodeReadListener.onQRCodeReadWithObject(QRParser.getInstance().getBarCodeObject());
 				}
 
