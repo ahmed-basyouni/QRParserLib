@@ -8,8 +8,7 @@ and the ability to return a well formated object which you can use to get desire
 
 - gives you the ability to change the QR reader replace it with your choice and the parser will be the same
 - Keep history to all QR codes scanned before
-- parse QR codes to a well formated object which contain a raw value you can use to display it into textview 
-  or use it to get scecific values
+- parse QR codes to a well formatted object which contain a raw value you can use to display it into textview or use it to get specific   values
 - ability to handle all action associated to a QR code (i.e for contact info it support show on map , call , send mail and add to contacts)
 - easy to use
 
