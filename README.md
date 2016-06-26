@@ -4,6 +4,8 @@ This lib intend to help developers to parse the qr text returned from any qr rea
 
 and the ability to return a well formated object which you can use to get desired field.
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-QRParserLib-green.svg?style=true)](https://android-arsenal.com/details/1/3785)
+
 # Features supported by Lib
 
 - gives you the ability to change the QR reader replace it with your choice and the parser will be the same
@@ -45,3 +47,6 @@ if that view doesn't go well with your teast well you can make your own view and
     The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
