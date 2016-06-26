@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.PointF;
 import android.hardware.Camera;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Surface;
@@ -12,7 +11,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 
-import com.ark.qrreader.qrReaderApi.exception.ExceptionManager;
 import com.ark.qrreader.qrReaderApi.parser.QRParser;
 import com.ark.qrreader.qrReaderApi.processing.OnQRCodeReadListener;
 import com.google.zxing.BinaryBitmap;
@@ -55,7 +53,6 @@ import java.io.IOException;
 public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callback,Camera.PreviewCallback {
 
 	private boolean isBarCodeAlreadyDetected;
-	private Context context;
 
 
 	public void refreshCamera() {
@@ -74,10 +71,11 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 	private static final String TAG = QRCodeReaderView.class.getName();
 
 	private QRCodeReader mQRCodeReader;
-    private int mPreviewWidth;
-    private int mPreviewHeight;
-    private SurfaceHolder mHolder;
-    private CameraManager mCameraManager;
+	private int mPreviewWidth;
+	private int mPreviewHeight;
+	private SurfaceHolder mHolder;
+	private CameraManager mCameraManager;
+	private Context context;
 
 	public QRCodeReaderView(Context context) {
 		super(context);
@@ -91,17 +89,14 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 		init();
 	}
 
-	public void setOnQRCodeReadListener(OnQRCodeReadListener onQRCodeReadListener) {
-		mOnQRCodeReadListener = onQRCodeReadListener;
-		ExceptionManager.getInstance().setOnQRCodeReadListener(onQRCodeReadListener);
-	}
-
 	public CameraManager getCameraManager() {
 		return mCameraManager;
 	}
 
 	@SuppressWarnings("deprecation")
 	private void init() {
+
+		mOnQRCodeReadListener = QRParser.getInstance().getOnQRCodeReadListener();
 
 		if (checkCameraHardware(getContext())){
 			mCameraManager = new CameraManager(getContext());
@@ -213,8 +208,8 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 		mCameraManager.getCamera().setPreviewCallback(this);
 		mCameraManager.getCamera().setDisplayOrientation(90); // Portrait mode
 
-        // Fix the camera sensor rotation
-        setCameraDisplayOrientation(this.getContext(), mCameraManager.getCamera());
+		// Fix the camera sensor rotation
+		setCameraDisplayOrientation(this.getContext(), mCameraManager.getCamera());
 
 		mCameraManager.startPreview();
 	}
@@ -270,34 +265,34 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 		}
 	}
 
-    /**
-     * Fix for the camera Sensor no some devices (ex.: Nexus 5x)
-     * http://developer.android.com/intl/pt-br/reference/android/hardware/Camera.html#setDisplayOrientation(int)
-     */
-    @SuppressWarnings("deprecation")
-    public static void setCameraDisplayOrientation(Context context, Camera camera) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
-            Camera.CameraInfo info = new Camera.CameraInfo();
-            Camera.getCameraInfo(0, info);
-            WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            int rotation = windowManager.getDefaultDisplay().getRotation();
-            int degrees = 0;
-            switch (rotation) {
-                case Surface.ROTATION_0: degrees = 0; break;
-                case Surface.ROTATION_90: degrees = 90; break;
-                case Surface.ROTATION_180: degrees = 180; break;
-                case Surface.ROTATION_270: degrees = 270; break;
-            }
+	/**
+	 * Fix for the camera Sensor no some devices (ex.: Nexus 5x)
+	 * http://developer.android.com/intl/pt-br/reference/android/hardware/Camera.html#setDisplayOrientation(int)
+	 */
+	@SuppressWarnings("deprecation")
+	public static void setCameraDisplayOrientation(Context context, Camera camera) {
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
+			Camera.CameraInfo info = new Camera.CameraInfo();
+			Camera.getCameraInfo(0, info);
+			WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+			int rotation = windowManager.getDefaultDisplay().getRotation();
+			int degrees = 0;
+			switch (rotation) {
+				case Surface.ROTATION_0: degrees = 0; break;
+				case Surface.ROTATION_90: degrees = 90; break;
+				case Surface.ROTATION_180: degrees = 180; break;
+				case Surface.ROTATION_270: degrees = 270; break;
+			}
 
-            int result;
-            if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                result = (info.orientation + degrees) % 360;
-                result = (360 - result) % 360;  // compensate the mirror
-            } else {  // back-facing
-                result = (info.orientation - degrees + 360) % 360;
-            }
-            camera.setDisplayOrientation(result);
-        }
-    }
+			int result;
+			if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+				result = (info.orientation + degrees) % 360;
+				result = (360 - result) % 360;  // compensate the mirror
+			} else {  // back-facing
+				result = (info.orientation - degrees + 360) % 360;
+			}
+			camera.setDisplayOrientation(result);
+		}
+	}
 
 }

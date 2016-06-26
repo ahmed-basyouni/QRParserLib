@@ -18,7 +18,6 @@ import com.ark.qrreader.qrReaderApi.annotations.OpenBrowser;
 import com.ark.qrreader.qrReaderApi.annotations.SendEmail;
 import com.ark.qrreader.qrReaderApi.annotations.SendSMS;
 import com.ark.qrreader.qrReaderApi.annotations.ShowOnMap;
-import com.ark.qrreader.qrReaderApi.exception.ExceptionManager;
 import com.ark.qrreader.qrReaderApi.exception.QRReaderException;
 import com.ark.qrreader.qrReaderApi.models.BarCodeObject;
 import com.ark.qrreader.qrReaderApi.parser.QRParser;
@@ -296,7 +295,7 @@ public class ActionHandler {
 
 
             exception.setMissingField("Email");
-            ExceptionManager.getInstance().getOnQRCodeReadListener().QRException(exception);
+            QRParser.getInstance().getOnQRCodeReadListener().QRException(exception);
         }
     }
 
@@ -319,7 +318,7 @@ public class ActionHandler {
         else {
 
             exception.setMissingField("Location");
-            ExceptionManager.getInstance().getOnQRCodeReadListener().QRException(exception);
+            QRParser.getInstance().getOnQRCodeReadListener().QRException(exception);
         }
     }
 

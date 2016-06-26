@@ -17,6 +17,7 @@ import com.ark.qrreader.qrReaderApi.exception.QRReaderException;
 import com.ark.qrreader.qrReaderApi.manager.HistoryManager;
 import com.ark.qrreader.qrReaderApi.models.BarCodeObject;
 import com.ark.qrreader.myapplication.R;
+import com.ark.qrreader.qrReaderApi.parser.QRParser;
 import com.ark.qrreader.qrReaderApi.processing.OnQRCodeReadListener;
 import com.ark.qrreader.qrReaderApi.uiUtils.ButtonsGenerator;
 
@@ -42,6 +43,7 @@ public class CaptureActivity extends Activity implements OnQRCodeReadListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        QRParser.init(this);
         setContentView(R.layout.ark_capture_activity);
         surfaceView = (QRCodeReaderView) findViewById(R.id.camera_view);
 
@@ -69,7 +71,6 @@ public class CaptureActivity extends Activity implements OnQRCodeReadListener {
             handleQRObject(barCodeObject);
 
         }
-        surfaceView.setOnQRCodeReadListener(this);
     }
 
     @Override

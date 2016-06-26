@@ -1,10 +1,13 @@
 package com.ark.qrreader.qrReaderApi.parser;
 
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 
-import com.ark.qrreader.myapplication.R;
 import com.ark.qrreader.qrReaderApi.manager.HistoryManager;
 import com.ark.qrreader.qrReaderApi.models.BarCodeObject;
+import com.ark.qrreader.qrReaderApi.processing.OnQRCodeReadListener;
+import com.ark.qrreader.qrReaderApi.utils.ActionHandler;
 import com.ark.qrreader.qrReaderApi.utils.DateUtils;
 
 import java.text.ParseException;
@@ -18,13 +21,25 @@ import java.util.Date;
 public class QRParser {
 
     private static QRParser instance;
+    private OnQRCodeReadListener listener;
 
     private BarCodeObject barCodeObject = new BarCodeObject();
 
     public static QRParser getInstance(){
 
         if(instance == null)
+            throw new RuntimeException("Please call QRParser.init() first");
+        return instance;
+    }
+
+    public static QRParser init(OnQRCodeReadListener listener){
+
+        if(instance == null) {
+
             instance = new QRParser();
+            instance.listener = listener;
+
+        }
         return instance;
     }
 
@@ -52,48 +67,57 @@ public class QRParser {
 
             case BarCodeObject.CONTACT_TYPE:
                 value = parseContact(rawValue);
-                text = context.getResources().getString(R.string.contact_info);
+                text = "Contact Info";
                 break;
 
             case BarCodeObject.CALENDER_TYPE:
                 value = parseCalenderEvent(rawValue);
-                text = context.getResources().getString(R.string.calendar_event);
+                text = "Calendar Event";
                 break;
 
             case BarCodeObject.GEO_TYPE:
                 value = parseGeo(rawValue);
-                text = context.getResources().getString(R.string.location);
+                text = "Location";
                 break;
 
             case BarCodeObject.PHONE_TYPE:
                 value = parsePhone(rawValue);
-                text = context.getResources().getString(R.string.phone_number);
+                text = "Phone Number";
                 break;
 
             case BarCodeObject.TEXT_TYPE:
                 value = parseText(rawValue);
-                text = context.getResources().getString(R.string.text);
+                text = "Text";
                 break;
 
             case BarCodeObject.EMAIL_TYPE:
                 value = parseEmail(rawValue);
-                text = context.getResources().getString(R.string.email);
+                text = "Email";
                 break;
 
             case BarCodeObject.URL_TYPE:
                 value = parseUrl(rawValue);
-                text = context.getResources().getString(R.string.web_link);
+                text = "Web Link";
                 break;
 
             case BarCodeObject.SMS_TYPE:
                 value = parseSMS(rawValue);
-                text = context.getResources().getString(R.string.sms_message);
+                text = "SMS Message";
                 break;
         }
 
         barCodeObject.setRawValue(value);
         barCodeObject.setQrType(text);
         HistoryManager.getInstance().onQRCodeRead(barCodeObject, context);
+
+        if(listener != null) {
+
+            if (listener instanceof Activity)
+                new ActionHandler((Activity) listener);
+            else if (listener instanceof Fragment)
+                new ActionHandler((Fragment) listener);
+        }
+
         return value;
     }
 
@@ -427,4 +451,7 @@ public class QRParser {
         return value;
     }
 
+    public OnQRCodeReadListener getOnQRCodeReadListener() {
+        return listener;
+    }
 }
