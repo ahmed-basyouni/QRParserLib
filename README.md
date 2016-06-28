@@ -35,6 +35,7 @@ if that view doesn't go well with your teast well you can make your own view and
 ###TODO
 
 - support gradle 
+- Ignore empty fields
 
 ###License
 
