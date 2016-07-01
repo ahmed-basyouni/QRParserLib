@@ -36,6 +36,10 @@ if that view doesn't go well with your teast well you can make your own view and
 
 - support gradle 
 - Ignore empty fields
+- support device rotation
+- support flash
+- support runtime permissions 
+
 
 ###License
 
