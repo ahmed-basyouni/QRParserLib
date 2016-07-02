@@ -35,9 +35,10 @@ if that view doesn't go well with your teast well you can make your own view and
 ###TODO
 
 - support gradle 
-- Ignore empty fields
-- support device rotation
-- support flash
+- ~~Ignore empty fields~~
+- ~~support device rotation~~
+- ~~support flash~~
+- ~~make min sdk 11 instead of 15~~
 - support runtime permissions 
 
 
