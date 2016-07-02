@@ -349,32 +349,38 @@ public class ActionHandler {
 
     private void addToContactsAction() {
 
-        BarCodeObject.ArkContact person = QRParser.getInstance().getBarCodeObject().contactInfo;
-
         Intent intent = new Intent(Intent.ACTION_INSERT);
         intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-        if (person.getFullName() != null)
-            intent.putExtra(ContactsContract.Intents.Insert.NAME, person.getFullName());
-        if (person.getPhones()[0] != null)
-            intent.putExtra(ContactsContract.Intents.Insert.PHONE, person.getPhones()[0]);
-        if (person.getEmail() != null)
-            intent.putExtra(ContactsContract.Intents.Insert.EMAIL, person.getEmail());
-        if (person.getTitle() != null)
-            intent.putExtra(ContactsContract.Intents.Insert.JOB_TITLE, person.getTitle());
-        if (person.getOrganization() != null)
-            intent.putExtra(ContactsContract.Intents.Insert.COMPANY, person.getOrganization());
 
-        if (person.getBirthday() != null) {
-            ArrayList<ContentValues> data = new ArrayList();
-            ContentValues row1 = new ContentValues();
-            row1.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE);
-            row1.put(ContactsContract.CommonDataKinds.Event.TYPE, Integer.valueOf(3));
-            row1.put(ContactsContract.CommonDataKinds.Event.START_DATE, DateUtils.getDateString(person.getBirthday()));
-            data.add(row1);
+        if (QRParser.getInstance().getBarCodeObject().contactInfo != null) {
+            BarCodeObject.ArkContact person = QRParser.getInstance().getBarCodeObject().contactInfo;
 
-            intent.putParcelableArrayListExtra("data", data);
+            if (person.getFullName() != null)
+                intent.putExtra(ContactsContract.Intents.Insert.NAME, person.getFullName());
+            if (person.getPhones()[0] != null)
+                intent.putExtra(ContactsContract.Intents.Insert.PHONE, person.getPhones()[0]);
+            if (person.getEmail() != null)
+                intent.putExtra(ContactsContract.Intents.Insert.EMAIL, person.getEmail());
+            if (person.getTitle() != null)
+                intent.putExtra(ContactsContract.Intents.Insert.JOB_TITLE, person.getTitle());
+            if (person.getOrganization() != null)
+                intent.putExtra(ContactsContract.Intents.Insert.COMPANY, person.getOrganization());
+
+            if (person.getBirthday() != null) {
+                ArrayList<ContentValues> data = new ArrayList();
+                ContentValues row1 = new ContentValues();
+                row1.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE);
+                row1.put(ContactsContract.CommonDataKinds.Event.TYPE, Integer.valueOf(3));
+                row1.put(ContactsContract.CommonDataKinds.Event.START_DATE, DateUtils.getDateString(person.getBirthday()));
+                data.add(row1);
+
+                intent.putParcelableArrayListExtra("data", data);
+            }
+
+        }else{
+
+            intent.putExtra(ContactsContract.Intents.Insert.PHONE, QRParser.getInstance().getBarCodeObject().phone.getNumber());
         }
-
         this.activity.startActivity(intent);
 
     }

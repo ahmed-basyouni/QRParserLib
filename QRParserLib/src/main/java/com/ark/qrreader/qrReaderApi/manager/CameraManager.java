@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.zxing.client.android.camera.open;
+package com.ark.qrreader.qrReaderApi.manager;
 
 import java.io.IOException;
 
@@ -37,21 +37,13 @@ public final class CameraManager {
 
     private static final String TAG = CameraManager.class.getSimpleName();
 
-    // private static final int MIN_FRAME_WIDTH = 240;
-    // private static final int MIN_FRAME_HEIGHT = 240;
-    // private static final int MAX_FRAME_WIDTH = 600;
-    // private static final int MAX_FRAME_HEIGHT = 400;
 
     private final Context context;
     private final CameraConfigurationManager configManager;
     private Camera camera;
-    private AutoFocusManager autoFocusManager;
     private boolean initialized;
     private boolean previewing;
-
-
-    // PreviewCallback references are also removed from original ZXING authors work, since We're using our own interface
-    // FramingRects references are also removed from original ZXING authors work, since We're using all view size while detecting QR-Codes
+    private boolean flashOn;
 
     public CameraManager(Context context) {
         this.context = context;
@@ -75,7 +67,7 @@ public final class CameraManager {
     public synchronized void openDriver(SurfaceHolder holder, int viewWidth, int viewHeight) throws IOException {
         Camera theCamera = camera;
         if (theCamera == null) {
-            theCamera = new OpenCameraManager().build().open();
+            theCamera = Camera.open();
             if (theCamera == null) {
                 throw new IOException();
             }
@@ -123,10 +115,6 @@ public final class CameraManager {
         if (camera != null) {
             camera.release();
             camera = null;
-            // Make sure to clear these each time we close the camera, so that any scanning rect
-            // requested by intent is forgotten.
-            // framingRect = null;
-            // framingRectInPreview = null;
         }
     }
 
@@ -135,15 +123,10 @@ public final class CameraManager {
      */
     public synchronized void startPreview() {
         Camera theCamera = camera;
-
         if (theCamera != null && !previewing) {
             theCamera.startPreview();
             previewing = true;
-            autoFocusManager = new AutoFocusManager(context, camera);
-
-            Camera.Parameters params = theCamera.getParameters();
-            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
-            theCamera.setParameters(params);
+            setFocus();
         }
     }
 
@@ -151,21 +134,60 @@ public final class CameraManager {
      * Tells the camera to stop drawing preview frames.
      */
     public synchronized void stopPreview() {
-        if (autoFocusManager != null) {
-            autoFocusManager.stop();
-            autoFocusManager = null;
-        }
         if (camera != null && previewing) {
             camera.stopPreview();
-            //previewCallback.setHandler(null, 0);
             previewing = false;
         }
     }
 
 
-    // All references to Torch are removed from original ZXING authors work since we're not using them.
+    public void changeFlash() {
 
-    // All references to FramingRects are removed from original ZXING authors work since we're not using them.
+        if (!flashOn && getCamera() != null) {
+
+            getCamera().startPreview();
+
+            setFlash(true);
+            setFocus();
+
+            flashOn = true;
+
+        } else if (flashOn && getCamera() != null) {
+
+            getCamera().startPreview();
+
+            setFlash(false);
+            setFocus();
+
+            flashOn = false;
+        }
+    }
+
+    public void setFlash(boolean isFlashOn) {
+        Camera.Parameters p = getCamera().getParameters();
+        if (isFlashOn) {
+            p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            getCamera().setParameters(p);
+            getCamera().startPreview();
+        } else {
+            p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            getCamera().setParameters(p);
+            getCamera().startPreview();
+        }
+        Log.w(TAG, "setFlash()");
+    }
+
+    public void setFocus() {
+        Camera.Parameters p = getCamera().getParameters();
+        p.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+        getCamera().setParameters(p);
+        getCamera().startPreview();
+    }
+
+
+    public boolean isFlashOn(){
+        return flashOn;
+    }
 
     /**
      * A factory method to build the appropriate LuminanceSource object based on the format

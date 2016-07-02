@@ -5,24 +5,14 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 11
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
 
-    signingConfigs {
-        testConfig{
-            storeFile file("/Users/ahmedb/ArkSigningCert.keystore")
-            storePassword "2007A56h93!"
-            keyAlias "ArkCert"
-            keyPassword "2007A56h93!"
-        }
-    }
-
     buildTypes {
         release {
-            signingConfig  signingConfigs.testConfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -34,7 +24,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    testCompile "org.robolectric:robolectric:3.0"
-    testCompile "org.mockito:mockito-core:1.+"
-    compile files('libs/core.jar')
+    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.mockito:mockito-core:1.+'
+    compile 'com.google.zxing:core:3.0.0'
 }

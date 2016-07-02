@@ -11,6 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 
+import com.ark.qrreader.qrReaderApi.manager.CameraManager;
 import com.ark.qrreader.qrReaderApi.parser.QRParser;
 import com.ark.qrreader.qrReaderApi.processing.OnQRCodeReadListener;
 import com.google.zxing.BinaryBitmap;
@@ -20,7 +21,6 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.PlanarYUVLuminanceSource;
 import com.google.zxing.Result;
 import com.google.zxing.ResultPoint;
-import com.google.zxing.client.android.camera.open.CameraManager;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 
@@ -49,10 +49,12 @@ import java.io.IOException;
  * Take some classes and made some modifications in the original ZXING - Barcode Scanner project.
  *
  * @author David Lázaro
+ * @author Ahmed.basyouni90@gmail.com (Ahmed Basyouni)
  */
 public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callback,Camera.PreviewCallback {
 
 	private boolean isBarCodeAlreadyDetected;
+	private boolean flashOn;
 
 
 	public void refreshCamera() {
@@ -88,6 +90,17 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 		this.context = context;
 		init();
 	}
+
+	public boolean isFlashOn(){
+		return mCameraManager.isFlashOn();
+	}
+
+	public void changeFlash(){
+
+		if(mCameraManager != null)
+			mCameraManager.changeFlash();
+	}
+
 
 	public CameraManager getCameraManager() {
 		return mCameraManager;
@@ -212,6 +225,7 @@ public class QRCodeReaderView extends SurfaceView implements SurfaceHolder.Callb
 		setCameraDisplayOrientation(this.getContext(), mCameraManager.getCamera());
 
 		mCameraManager.startPreview();
+
 	}
 
 	/**
