@@ -4,6 +4,9 @@ This lib intend to help developers to parse the qr text returned from any qr rea
 
 and the ability to return a well formated object which you can use to get desired field.
 
+CameraConfigurationManager was taken from zxing
+QRCodeReaderView was built upon  [dlazaro66/QRCodeReaderView](https://github.com/dlazaro66/QRCodeReaderView))
+
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-QRParserLib-green.svg?style=true)](https://android-arsenal.com/details/1/3785)
 
 # Features supported by Lib
