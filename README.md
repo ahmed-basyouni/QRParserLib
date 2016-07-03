@@ -15,6 +15,8 @@ QRCodeReaderView was built upon  [dlazaro66/QRCodeReaderView](https://github.com
 - Keep history to all QR codes scanned before
 - parse QR codes to a well formatted object which contain a raw value you can use to display it into textview or use it to get specific   values
 - ability to handle all action associated to a QR code (i.e for contact info it support show on map , call , send mail and add to contacts)
+- ability to use flash light 
+- support device rotation 
 - easy to use
 
 # How to use 
