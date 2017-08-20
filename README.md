@@ -37,7 +37,7 @@ and after detection
 
 if that view doesn't go well with your teast well you can make your own view and to do that please follow manual installation in wiki
 
-###TODO
+### TODO
 
 - support gradle 
 - ~~Ignore empty fields~~
@@ -47,7 +47,7 @@ if that view doesn't go well with your teast well you can make your own view and
 - support runtime permissions 
 
 
-###License
+### License
 
     The MIT License (MIT)
 
