@@ -145,14 +145,14 @@ public class ButtonsGenerator {
         return container;
     }
 
-    public LinearLayout getButtonsView() {
+    public LinearLayout getButtonsView(BarCodeObject barCodeObject) {
 
         LinearLayout container = new LinearLayout(activity);
 
         container.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         container.setOrientation(LinearLayout.VERTICAL);
 
-        switch (QRParser.getInstance().getBarCodeObject().getBarObjectType()) {
+        switch (barCodeObject.getBarObjectType()) {
 
             case BarCodeObject.CONTACT_TYPE:
                 container.addView(getPhoneLayout());

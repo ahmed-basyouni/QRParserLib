@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QRParserLib.iml" filepath="$PROJECT_DIR$/QRParserLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QRParserLib.iml" filepath="$PROJECT_DIR$/QRParserLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QRParserLib/QRParserLib-QRParserLib.iml" filepath="$PROJECT_DIR$/QRParserLib/QRParserLib-QRParserLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/QRParserLib/QRParserLib-QRParserLib.iml" filepath="$PROJECT_DIR$/QRParserLib/QRParserLib-QRParserLib.iml" />
     </modules>
   </component>

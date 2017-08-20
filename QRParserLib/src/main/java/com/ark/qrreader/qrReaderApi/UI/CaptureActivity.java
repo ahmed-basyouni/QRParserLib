@@ -130,7 +130,7 @@ public class CaptureActivity extends Activity implements OnQRCodeReadListener , 
         historyButton.setVisibility(View.GONE);
         flashBtn.setVisibility(View.GONE);
         textView_qrcode_info.setText(text);
-        buttonsContainer.addView(new ButtonsGenerator(CaptureActivity.this).getButtonsView());
+        buttonsContainer.addView(new ButtonsGenerator(CaptureActivity.this).getButtonsView(QRParser.getInstance().getBarCodeObject()));
     }
 
     // Called when your device have no camera
